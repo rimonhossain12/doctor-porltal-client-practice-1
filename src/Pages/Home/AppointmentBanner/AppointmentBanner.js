@@ -33,7 +33,7 @@ const AppointmentBanner = () => {
                         <Typography variant="h6" sx={{ my: 5 }} style={{ color: 'white', fontWeight: 400, fontSize: 14 }}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aut quos aliquid odit sapiente necessitatibus libero dolores laborum ex? Quae.
                         </Typography>
-                        <Button variant="contained" style={{ color:'#14CED3'}}>Contained</Button>
+                        <Button variant="contained" style={{ backgroundColor: '#8CE6E8' }}>LEARN MORE</Button>
                     </Box>
                 </Grid>
             </Grid>
