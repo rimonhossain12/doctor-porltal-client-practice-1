@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import doctor from '../../../images/doctor.png';
 import bannerBg from '../../../images/appointment-bg.png';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
 
 
 const appointmentBg = {
@@ -22,7 +24,7 @@ const AppointmentBanner = () => {
                 </Grid>
                 <Grid item xs={12} md={5} sx={{ display: 'flex', justifyContent: 'flex-start', textAlign: 'left', alignItems: 'center' }}>
                     <Box>
-                        <Typography variant="h6" component="div" style={{ color: '#45AAAA' }} sx={{ mb: 5 }} >
+                        <Typography variant="h6" component="div" style={{ color: '#14CED3' }} sx={{ mb: 5 }} >
                             APPOINTMENT
                         </Typography>
                         <Typography variant="h4" sx={{ mb: 5 }} style={{ color: 'white', mb: 5 }}>
@@ -31,6 +33,7 @@ const AppointmentBanner = () => {
                         <Typography variant="h6" sx={{ my: 5 }} style={{ color: 'white', fontWeight: 400, fontSize: 14 }}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aut quos aliquid odit sapiente necessitatibus libero dolores laborum ex? Quae.
                         </Typography>
+                        <Button variant="contained" style={{ color:'#14CED3'}}>Contained</Button>
                     </Box>
                 </Grid>
             </Grid>
