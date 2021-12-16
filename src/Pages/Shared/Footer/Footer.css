@@ -1,0 +1,11 @@
+ul {
+   list-style-type: none;
+}
+
+ul li {
+    text-align: left;
+    line-height: 2;
+    font-size: 17px;
+    color: gray;
+
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import DentalCare from '../../DentalCare/DentalCare';
 import OurBlog from '../../OurBlog/OurBlog';
+import Footer from '../../Shared/Footer/Footer';
 import Navigation from '../../Shared/Navigation/Navigation';
 import AppointmentBanner from '../AppointmentBanner/AppointmentBanner';
 import Banner from '../Banner/Banner';
@@ -15,6 +16,7 @@ const Home = () => {
             <DentalCare></DentalCare>
             <AppointmentBanner></AppointmentBanner>
             <OurBlog></OurBlog>
+            <Footer></Footer>
            
         </div>
     );
