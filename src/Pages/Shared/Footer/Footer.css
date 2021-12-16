@@ -1,5 +1,5 @@
 ul {
-   list-style-type: none;
+    list-style-type: none;
 }
 
 ul li {
@@ -8,4 +8,28 @@ ul li {
     font-size: 17px;
     color: gray;
 
+}
+#icon-div{
+    text-align: left;
+}
+#phone-div{
+    text-align: left;
+}
+#icon-div span {
+    margin-right: 10px;
+    /* background-color: turquoise; */
+}
+
+#icon-div span .icon {
+    color: turquoise;
+    border-radius: 50%;
+
+}
+#phon-style p{
+    padding: 10px 20px;
+    color: turquoise;
+    background-color:turquoise;
+    color: white;
+    width: 40%;
+    border-radius: 5px;
 }

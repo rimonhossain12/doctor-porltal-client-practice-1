@@ -3,6 +3,7 @@ import footer from '../../../images/footer-bg.png';
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@mui/material';
 import './Footer.css';
+import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 
 const footerBg = {
     background: `url(${footer})`,
@@ -56,7 +57,22 @@ const Footer = () => {
                         <Typography style={{ color: '#8DE6E6', fontWeight: '500' }} variant="h6" gutterBottom component="div">
                             Our Address
                         </Typography>
-                        Hello
+                     <div id="icon-div">
+                            <span> <FaFacebookF size={25} className="icon" /> </span>
+                            <span> <FaGoogle size={25} className="icon"/> </span>
+                            <span> <FaTwitter size={25} className="icon" /> </span>
+                     </div>
+                     <div id="phone-div">
+                            <Typography style={{ color: '#8DE6E6', fontWeight: '500' }} variant="h6" gutterBottom component="div">
+                              <p sx={{my:5}}>Call Now</p>
+                            </Typography>
+
+                            <Typography id="phon-style" style={{ color: '#8DE6E6', fontWeight: '500' }} variant="h6" gutterBottom component="div">
+                                <p>+238340583058</p>
+                            </Typography>
+
+                     </div>
+                      
                     </Grid>
 
 
