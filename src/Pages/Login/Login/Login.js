@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, TextField, Typography } from '@mui/material';
 import loginImg from '../../../images/login.png';
 import { NavLink } from 'react-router-dom';
-
-const handleOnChange = e => {
-    const field = e.target.name;
-    const value = e.target.value;
-    console.log(field,value);
-}
-
 const Login = () => {
+    const [loginData, setLoginData] = useState({});
+
+    const handleOnChange = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newLoginDate = { ...loginData };
+        newLoginDate[field] = value;
+        setLoginData(newLoginDate);
+    }
+
     return (
         <Box sx={{ flexGrow: 1, mt: 8 }}>
             <Grid container spacing={2}>
@@ -33,7 +36,7 @@ const Login = () => {
                             id="standard-basic"
                             onChange={handleOnChange}
                             type="password"
-                            label="your email"
+                            label="your password"
                             name="password"
                             variant="standard"
                         />
@@ -42,7 +45,7 @@ const Login = () => {
                             sx={{ width: '75%', m: 1 }}
                         >Login</Button>
                     </form>
-                    <NavLink style={{textDecoration:'none'}} to="/register">
+                    <NavLink style={{ textDecoration: 'none' }} to="/register">
                         <Button
                             variant="text"
                             sx={{ width: '75%', m: 1 }}
