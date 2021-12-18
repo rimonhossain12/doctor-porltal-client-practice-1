@@ -6,9 +6,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import useAuth from '../../../hooks/useAuth';
 
 const Navigation = () => {
+    const { user,logOut } = useAuth();
+    // const handleLogOut = e => {
+    //     logOut();
+    // }
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
@@ -27,13 +32,20 @@ const Navigation = () => {
                             DOCTOR PORTAL
                         </Typography>
 
-                        <NavLink style={{ textDecoration: 'none', color: 'white' }}  to="/appointment">
+                        <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/appointment">
                             Appointment
                         </NavLink>
 
-                       <NavLink style={{textDecoration:'none',color:'white'}} to="/login">
-                            <Button color="inherit">Login</Button>
-                        </NavLink>
+                        {
+                            user?.email ? <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/">
+                                <Button onClick={logOut} color="inherit">LogOut</Button>
+                            </NavLink> :
+                                <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/login">
+                                    <Button color="inherit">LogIn</Button>
+                                </NavLink>
+                        }
+
+
                     </Toolbar>
                 </AppBar>
             </Box>
