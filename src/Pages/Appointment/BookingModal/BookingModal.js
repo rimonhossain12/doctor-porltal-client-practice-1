@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import useAuth from '../../../hooks/useAuth';
 
 
 
@@ -23,6 +24,8 @@ const style = {
 
 
 const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
+    const {user} = useAuth();
+    
     const { name, time } = booking;
     const handleOnSubmit = e => {
         alert('Buttons is click');
@@ -59,14 +62,14 @@ const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
                             style={{ width: '90%' }}
                             sx={{mb:2}}
                             id="outlined-size-small"
-                            defaultValue="your name"
+                            defaultValue={user.displayName}
                             size="small"
                         />
                         <TextField
                             style={{ width: '90%' }}
                             sx={{ mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue="your email"
+                            defaultValue={user.email}
                             size="small"
                         />
                         <TextField
