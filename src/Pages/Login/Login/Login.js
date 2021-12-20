@@ -3,9 +3,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, TextField, Typography, Alert, CircularProgress } from '@mui/material';
 import loginImg from '../../../images/login.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation,useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 
 const Login = () => {
@@ -23,8 +23,8 @@ const Login = () => {
         setLoginData(newLoginDate);
     }
 
-    const handleOnLogin = e => {
-        loginUser(loginData.email, loginData.password, location, history);
+    const handleLoginSubmit = e => {
+        loginUser(loginData.email, loginData.password,location,history);
         e.preventDefault();
     }
 
@@ -41,7 +41,7 @@ const Login = () => {
                     </Typography>
                     {
                         !isLoading &&
-                        <form onSubmit={handleOnLogin}>
+                        <form onSubmit={handleLoginSubmit}>
                             <TextField
                                 sx={{ width: '75%', m: 1 }}
                                 id="standard-basic"

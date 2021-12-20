@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -23,15 +23,46 @@ const style = {
 };
 
 
-const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
-    const {user} = useAuth();
-    
+const BookingModal = ({ openBooking, handleBookingClose, booking, value, setBookingSuccess }) => {
+    const { user } = useAuth();
     const { name, time } = booking;
-    const handleOnSubmit = e => {
-        alert('Buttons is click');
-        e.preventDefault();
-        handleBookingClose();
+
+    const [bookingInfo, setBookingInfo] = useState({});
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newInfo = { ...bookingInfo };
+        newInfo[field] = value;
+        setBookingInfo(newInfo);
     }
+
+    const handleBookingSubmit = e => {
+        const appointment = {
+            ...bookingInfo,
+            serialTime: time,
+            serviceName:name,
+            ShowDoctorDate: value.toLocaleDateString(),
+        }
+    //    send date to the server
+        fetch('http://localhost:5000/appointments', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(appointment)
+        })
+            .then(res => res.json())
+            .then(data =>{
+                if (data.insertedId){
+                    setBookingSuccess(true)
+                    handleBookingClose();
+                }
+            });
+
+        e.preventDefault();
+    }
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -49,19 +80,21 @@ const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
                     <Typography id="transition-modal-title" variant="h6" component="h2">
                         {name}
                     </Typography>
-                    <form onSubmit={handleOnSubmit}>
+                    <form onSubmit={handleBookingSubmit}>
                         <TextField
                             disabled
                             style={{ width: '90%' }}
-                            sx={{mb:2}}
+                            sx={{ mb: 2 }}
                             id="outlined-size-small"
                             defaultValue={time}
                             size="small"
                         />
                         <TextField
                             style={{ width: '90%' }}
-                            sx={{mb:2}}
+                            sx={{ mb: 2 }}
                             id="outlined-size-small"
+                            name="patientName"
+                            onBlur={handleOnBlur}
                             defaultValue={user.displayName}
                             size="small"
                         />
@@ -69,6 +102,8 @@ const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
                             style={{ width: '90%' }}
                             sx={{ mb: 2 }}
                             id="outlined-size-small"
+                            name="email"
+                            onBlur={handleOnBlur}
                             defaultValue={user.email}
                             size="small"
                         />
@@ -76,18 +111,20 @@ const BookingModal = ({ openBooking, handleBookingClose, booking,value }) => {
                             style={{ width: '90%' }}
                             sx={{ mb: 2 }}
                             id="outlined-size-small"
+                            name="phone"
+                            onBlur={handleOnBlur}
                             defaultValue="phone number"
                             size="small"
                         />
                         <TextField
-                        disabled
+                            disabled
                             style={{ width: '90%' }}
                             sx={{ mb: 2 }}
                             id="outlined-size-small"
                             defaultValue={value.toDateString()}
                             size="small"
                         />
-                        <Button type="submit" variant="contained">submit</Button>
+                        <Button type="Submit" variant="contained">Submit</Button>
                     </form>
                 </Box>
             </Fade>

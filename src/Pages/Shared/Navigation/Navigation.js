@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 import useAuth from '../../../hooks/useAuth';
 
 const Navigation = () => {
-    const { user,logOut } = useAuth();
+    const { user, logOut } = useAuth();
     // const handleLogOut = e => {
     //     logOut();
     // }
@@ -38,7 +38,12 @@ const Navigation = () => {
 
                         {
                             user?.email ? <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/">
-                                <Button onClick={logOut} color="inherit">LogOut</Button>
+                                <Box>
+                                    <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/dashboard">
+                                        <Button color="inherit">DashBoard</Button>
+                                    </NavLink>
+                                    <Button onClick={logOut} color="inherit">LogOut</Button>
+                                </Box>
                             </NavLink> :
                                 <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/login">
                                     <Button color="inherit">LogIn</Button>
