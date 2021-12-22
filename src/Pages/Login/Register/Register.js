@@ -24,7 +24,6 @@ const Register = () => {
             alert('Password did not match');
         }
         registerUser(loginData.email, loginData.password,loginData.name,history);
-        alert('button is click');
         console.log(loginData, 'user', user);
         e.preventDefault();
     }

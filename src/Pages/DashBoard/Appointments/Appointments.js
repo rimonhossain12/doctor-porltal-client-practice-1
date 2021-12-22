@@ -6,14 +6,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import useAuth from '../../../hooks/useAuth';
 
-const Appointments = () => {
+const Appointments = ({date}) => {
+    const{user} = useAuth();
     const [service, setService] = useState([]);
+    // const upDate = ShowDoctorDate.toLocaleDateString();
+    // console.log(upDate);
+
     useEffect(() => {
-        fetch('http://localhost:5000/appointments')
+        const url = `http://localhost:5000/appointments?email=${user.email}&date=${date}`;
+        fetch(url)
             .then(res => res.json())
             .then(data => setService(data));
-    }, [])
+    }, [user.email, date]);
     return (
         <div>
             <h2>This is Appointment:{service.length}</h2>
@@ -21,8 +27,9 @@ const Appointments = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>PatientName</TableCell>
-                            <TableCell align="right">ServiceName</TableCell>
+                            <TableCell>Patient Name</TableCell>
+                            <TableCell align="right">Treatment Name</TableCell>
+                            {/* <TableCell align="right">Email</TableCell> */}
                             <TableCell align="right">time</TableCell>
                             <TableCell align="right">Date</TableCell>
                             <TableCell align="right">Phone</TableCell>
@@ -38,6 +45,9 @@ const Appointments = () => {
                                     {row.patientName}
                                 </TableCell>
                                 <TableCell align="right">{row.serviceName}</TableCell>
+                                {/* <TableCell component="th" scope="row">
+                                    {row.email}
+                                </TableCell> */}
                                 <TableCell align="right">{row.serialTime}</TableCell>
                                 <TableCell align="right">{row.ShowDoctorDate}</TableCell>
                                 <TableCell align="right">{row.phone}</TableCell>

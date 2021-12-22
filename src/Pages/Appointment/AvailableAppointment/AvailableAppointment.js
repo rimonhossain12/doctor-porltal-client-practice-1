@@ -41,12 +41,12 @@ const bookings = [
     },
 ]
 
-const AvailableAppointment = ({ value }) => {
+const AvailableAppointment = ({ date }) => {
     const [bookingSuccess,setBookingSuccess] = useState(false);
     return (
         <Container>
             <Typography variant="h6" sx={{ color: 'info.main',mb:2}}>
-                <h2> Available Appointment on {value.toDateString()}</h2>
+                <h2> Available Appointment on {date.toDateString()}</h2>
             </Typography>
             {bookingSuccess && <Alert severity="success">Appointment Booked Successfully!</Alert>}
             <Grid container spacing={2}>
@@ -54,7 +54,7 @@ const AvailableAppointment = ({ value }) => {
                     bookings.map(booking => <Booking 
                         key={booking.id}
                         booking={booking}
-                        value={value}
+                        date={date}
                         setBookingSuccess={setBookingSuccess}
                     ></Booking>)
                 }

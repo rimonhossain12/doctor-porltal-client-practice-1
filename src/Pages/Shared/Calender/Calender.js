@@ -4,15 +4,16 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 
-const Calender = ({value,setValue}) => {   
+
+const Calender = ({date,setDate}) => {  
     return (
         <div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <StaticDatePicker
                     displayStaticWrapperAs="desktop"
-                    value={value}
-                    onChange={(newValue) => {
-                        setValue(newValue);
+                    value={date}
+                    onChange={(setValue) => {
+                        setDate(setValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
                 />

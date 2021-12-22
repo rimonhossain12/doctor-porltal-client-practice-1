@@ -4,12 +4,12 @@ import AppointmentHeader from '../AppointmentHeader/AppointmentHeader';
 import AvailableAppointment from '../AvailableAppointment/AvailableAppointment';
 
 const Appointment = () => {
-    const [value, setValue] = React.useState(new Date());
+    const [date, setDate] = React.useState(new Date());
     return (
         <div>
-            <Navigation value={value} setValue={setValue}></Navigation>
-            <AppointmentHeader value={value} setValue={setValue}></AppointmentHeader>
-            <AvailableAppointment value={value} setValue={setValue}></AvailableAppointment>
+            <Navigation></Navigation>
+            <AppointmentHeader date={date} setDate={setDate}></AppointmentHeader>
+            <AvailableAppointment date={date}></AvailableAppointment>
         </div>
     );
 };

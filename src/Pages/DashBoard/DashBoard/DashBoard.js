@@ -18,10 +18,14 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Calender from '../../Shared/Calender/Calender';
 import Appointments from '../Appointments/Appointments';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const drawerWidth = 200;
 function DashBoard(props) {
     const { window } = props;
+    const [date, setDate] = React.useState(new Date());
+    console.log(date);
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -32,6 +36,9 @@ function DashBoard(props) {
             <Toolbar />
             <Divider />
             <List>
+                <Link to="/appointment">
+                    <Button variant='text'>Appointment</Button>
+                </Link>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
@@ -90,7 +97,9 @@ function DashBoard(props) {
                     }}
                 >
                     {drawer}
+
                 </Drawer>
+
                 <Drawer
                     variant="permanent"
                     sx={{
@@ -111,10 +120,15 @@ function DashBoard(props) {
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={6}>
-                               <Calender></Calender>
+                                <Calender
+                                    date={date}
+                                    setDate={setDate}
+                                ></Calender>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Appointments></Appointments>
+                                <Appointments
+                                    date={date}
+                                ></Appointments>
                             </Grid>
                         </Grid>
                     </Box>

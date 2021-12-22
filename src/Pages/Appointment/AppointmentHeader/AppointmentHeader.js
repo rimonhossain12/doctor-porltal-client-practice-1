@@ -5,7 +5,7 @@ import { Container, Typography } from '@mui/material';
 import Calender from '../../Shared/Calender/Calender';
 
 
-const AppointmentHeader = ({value,setValue}) => {
+const AppointmentHeader = ({date,setDate}) => {
     return (
         <div>
             <Container sx={{ flexGrow: 1 }}>
@@ -15,8 +15,8 @@ const AppointmentHeader = ({value,setValue}) => {
                             Appointment
                         </Typography>
                         <Calender
-                            value={value}
-                            setValue={setValue}
+                            date={date}
+                            setDate={setDate}
                         ></Calender>
                     </Grid>
                     <Grid item xs={12} md={6}>

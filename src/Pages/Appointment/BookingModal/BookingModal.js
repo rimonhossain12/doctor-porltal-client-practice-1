@@ -8,8 +8,6 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
 
-
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -23,11 +21,12 @@ const style = {
 };
 
 
-const BookingModal = ({ openBooking, handleBookingClose, booking, value, setBookingSuccess }) => {
+const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
+    console.log('date = ',date);
     const { user } = useAuth();
     const { name, time } = booking;
-
-    const [bookingInfo, setBookingInfo] = useState({});
+    const initialInfo = {patientName:user.displayName,email:user.email,phone:''};
+    const [bookingInfo, setBookingInfo] = useState(initialInfo);
 
     const handleOnBlur = e => {
         const field = e.target.name;
@@ -40,9 +39,8 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, value, setBook
     const handleBookingSubmit = e => {
         const appointment = {
             ...bookingInfo,
-            serialTime: time,
             serviceName:name,
-            ShowDoctorDate: value.toLocaleDateString(),
+            date: date.toLocaleDateString(),
         }
     //    send date to the server
         fetch('http://localhost:5000/appointments', {
@@ -121,7 +119,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, value, setBook
                             style={{ width: '90%' }}
                             sx={{ mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue={value.toDateString()}
+                            defaultValue={date.toDateString()}
                             size="small"
                         />
                         <Button type="Submit" variant="contained">Submit</Button>
