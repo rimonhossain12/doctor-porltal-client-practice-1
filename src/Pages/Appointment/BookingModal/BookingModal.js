@@ -22,7 +22,6 @@ const style = {
 
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
-    console.log('date = ',date);
     const { user } = useAuth();
     const { name, time } = booking;
     const initialInfo = {patientName:user.displayName,email:user.email,phone:''};

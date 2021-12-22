@@ -15,13 +15,13 @@ const Register = () => {
         const value = e.target.value;
         const newLoginData = { ...loginData };
         newLoginData[field] = value;
-        console.log(newLoginData);
         setLoginData(newLoginData);
     }
 
     const handleOnSubmit = e => {
         if (loginData.password !== loginData.password2) {
             alert('Password did not match');
+            return;
         }
         registerUser(loginData.email, loginData.password,loginData.name,history);
         console.log(loginData, 'user', user);

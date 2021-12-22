@@ -8,6 +8,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+    const [admin,setAdmin] = useState(false);
 
     // const email and password 
     const auth = getAuth();
@@ -21,14 +22,14 @@ const useFirebase = () => {
                 setAuthError('');
                 const newUser = { email, displayName: name };
                 setUser(newUser);
-                saveUser(email,name);
+                saveUser(email, name,'POST');
                 // send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
                 })
-                .catch((error) => {
-                });
+                    .catch((error) => {
+                    });
                 history.push('/');
             })
             .catch((error) => {
@@ -58,7 +59,7 @@ const useFirebase = () => {
                 const destination = location?.state?.from || '/';
                 history.replace(destination);
                 // setUser(user);
-                saveUser(user.email,user.displayName);
+                saveUser(user.email, user.displayName,'PUT');
                 setAuthError('');
             }).catch((error) => {
                 setAuthError(error.message);
@@ -77,7 +78,7 @@ const useFirebase = () => {
         });
         return () => unsubscribe;
     }, [auth])
-    
+
     // singOut
     const logOut = () => {
         setIsLoading(true);
@@ -86,26 +87,32 @@ const useFirebase = () => {
         }).catch((error) => {
             // An error happened.
         }).finally(() => setIsLoading(false));
-
     }
-   
+
     // saved user to the server
-    const saveUser = (email,displayName) => {
-        const user = {email,displayName};
-        fetch('http://localhost:5000/user',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+    const saveUser = (email, displayName,method) => {
+        const user = { email, displayName };
+        fetch('http://localhost:5000/user', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(user)
+            body: JSON.stringify(user)
         })
         .then()
     }
-   
+
+    // found user is admin or not admin
+    useEffect(() => {
+        fetch(`http://localhost:5000/user/${user.email}`)
+        .then(res => res.json())
+        .then(data => {setAdmin(data.admin)});
+    },[user.email])
 
     return {
         user,
         registerUser,
+        admin,
         singInWithGoogle,
         isLoading,
         authError,

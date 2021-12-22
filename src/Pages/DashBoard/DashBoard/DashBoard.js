@@ -15,19 +15,26 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Calender from '../../Shared/Calender/Calender';
-import Appointments from '../Appointments/Appointments';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import {
+    Switch,
+    Route,
+    useRouteMatch
+} from "react-router-dom";
+import DashBoarHome from '../DashBoardHome/DashBoarHome';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import MakeDoctor from './MakeDoctor/MakeDoctor';
+import useAuth from '../../../hooks/useAuth';
+import AdminRoute from '../../Login/AdminRoute/AdminRoute';
+
 
 const drawerWidth = 200;
 function DashBoard(props) {
     const { window } = props;
-    const [date, setDate] = React.useState(new Date());
-    console.log(date);
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
+    const { path, url } = useRouteMatch();
+    const {admin} = useAuth();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -37,8 +44,16 @@ function DashBoard(props) {
             <Divider />
             <List>
                 <Link to="/appointment">
-                    <Button variant='text'>Appointment</Button>
+                    <Button color="inherit" variant='text'>Appointment</Button>
                 </Link>
+                <Link to={`${url}`}><Button color="inherit">Dashboard</Button></Link>
+               { admin && 
+                   <Box>
+                        <Link to={`${url}/makeAdmin`}><Button color="inherit" variant='text'>Make Admin</Button></Link>
+                        <Link to={`${url}/makeDoctor`}><Button color="inherit" variant='text'>Make Doctor</Button></Link>
+                   </Box>
+               }
+
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
@@ -116,23 +131,19 @@ function DashBoard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <Calender
-                                    date={date}
-                                    setDate={setDate}
-                                ></Calender>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Appointments
-                                    date={date}
-                                ></Appointments>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Switch>
+                        <Route exact path={path}>
+                            <DashBoarHome />
+                        </Route>
+                        <AdminRoute path={`${path}/makeAdmin`}>
+                            <MakeAdmin />
+                        </AdminRoute>
+                        <AdminRoute path={`${path}/makeDoctor`}>
+                            <MakeDoctor />
+                        </AdminRoute>                       
+                    </Switch>
+                </Box>
             </Box>
         </Box>
     );
